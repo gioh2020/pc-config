@@ -9,6 +9,7 @@ Configuración de Hyprland (window manager) y atajos de teclado.
 
 - **`bindings.conf`** — Atajos de teclado personalizados (aplicaciones: terminal, navegador, gestor de archivos, editor, etc).
 - **`tiling_referencia_es.conf`** — Guía de referencia en español con los atajos del sistema de tiling (cerrar/mover/redimensionar ventanas, pantalla completa, workspaces, etc).
+- **`monitors-desktop.conf`** — Configuración de pantalla **específica del PC de escritorio** (monitor Samsung Odyssey G93SC 49", 5120x1440@120Hz vía DisplayPort). **No aplicar en la laptop**, cuya configuración de pantalla es distinta (resolución/puerto propios del panel integrado). Para aplicarla, copiar como `~/.config/hypr/monitors.conf` solo en el equipo de escritorio.
 
 ### `waybar/`
 Configuración de Waybar (barra de estado).
