@@ -22,6 +22,7 @@ Configuración de Waybar (barra de estado).
 Especificaciones de referencia de cada equipo (hardware, drivers, software instalado).
 
 - **`laptop-ga403uv.md`** — CPU, GPU (dGPU + iGPU), RAM, almacenamiento, red, batería y stack de software (kernel, Hyprland, drivers NVIDIA/AMD, etc) de la laptop ASUS ROG Zephyrus G14 GA403UV.
+- **`monitor-samsung-g9.md`** — Referencia del monitor Samsung Odyssey G9 (código de modelo, versión de software/T-Con, número de serie) leída del propio OSD del monitor.
 
 ## Uso
 
