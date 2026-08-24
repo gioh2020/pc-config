@@ -1,4 +1,7 @@
 #!/bin/bash
+# Laptop-only: hardcodes this machine's sensor chip names (k10temp CPU / amdgpu GPU).
+# On other hardware (e.g. the desktop PC) these chip names differ, so this script
+# will just report N/A there — adjust the chip names below or disable the module.
 
 json=$(sensors -j 2>/dev/null)
 
