@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Omarchy fuerza el theme color de los navegadores basados en Chromium (Chromium, Chrome,
+# Edge, Brave) via una politica "managed" (BrowserThemeColor/BrowserColorScheme) cada vez
+# que se cambia de tema (ver omarchy-theme-set-browser). Esa politica bloquea el selector
+# de tema nativo del navegador con "Set by your Organization". Este hook la borra despues
+# de cada cambio de tema para poder elegir el tema del navegador manualmente.
+#
+# Los directorios policies/managed/ son world-writable (0777, root:root), asi que no hace
+# falta sudo para borrar el archivo.
+
+rm -f \
+  /etc/chromium/policies/managed/color.json \
+  /etc/opt/chrome/policies/managed/color.json \
+  /etc/opt/edge/policies/managed/color.json \
+  /etc/brave/policies/managed/color.json

@@ -45,6 +45,11 @@ Configuración de Elephant (backend de proveedores de datos de Walker, el launch
 
 - **`clipboard.toml`** *(compartido)* — Config del historial de portapapeles. `command` está modificado para que, al seleccionar un elemento, además de copiarlo (`wl-copy`) se envíe automáticamente `Shift+Insert` a la ventana activa (pegado universal) — así queda pegado al instante, sin pegar manualmente (soluciona que `Ctrl+V` no pegue en terminales).
 
+### `omarchy/hooks/`
+Hooks de Omarchy (se ejecutan automáticamente en ciertos eventos, ver [`~/.config/omarchy/hooks/`](https://learn.omarchy.org)).
+
+- **`theme-set.d/remove-chromium-browser-policy`** *(compartido)* — Al cambiar de tema, Omarchy fuerza el color del tema de Chromium/Chrome/Edge/Brave escribiendo una política "managed" (`BrowserThemeColor`/`BrowserColorScheme`) en `/etc/*/policies/managed/color.json` (ver `omarchy-theme-set-browser`). Esa política bloquea el selector de tema nativo del navegador con "Set by your Organization". Este hook borra esos archivos justo después de cada cambio de tema para poder elegir el tema del navegador manualmente. No necesita `sudo`: esos directorios `policies/managed/` son world-writable (0777, root:root).
+
 ### `specs/`
 Especificaciones de referencia de cada equipo (hardware, drivers, software instalado). Son solo documentación — no se aplican a ningún lado.
 
@@ -69,6 +74,7 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    cp waybar/style.css ~/.config/waybar/style.css
    cp waybar/temperature.sh ~/.config/waybar/temperature.sh
    mkdir -p ~/.config/elephant && cp elephant/clipboard.toml ~/.config/elephant/clipboard.toml
+   omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
    ```
 
 4. Copiar el archivo de monitores **según el equipo**:
@@ -84,6 +90,7 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    hyprctl reload && hyprctl configerrors   # Hyprland (bindings, monitors)
    omarchy restart waybar                    # Waybar (config.jsonc, style.css, temperature.sh)
    systemctl --user restart elephant.service # Elephant (clipboard.toml)
+   omarchy-theme-set-browser && omarchy-hook theme-set "$(omarchy theme current)" # Hook remove-chromium-browser-policy: limpia el bloqueo ya presente sin esperar al próximo cambio de tema
    ```
 
 ## Cómo actualizar el repo tras cambiar la config en vivo
