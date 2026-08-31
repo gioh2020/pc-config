@@ -18,6 +18,11 @@ Configuración de Waybar (barra de estado).
 - **`config.jsonc`** — Módulos y layout de la barra, configurada para mostrarse en la parte inferior de la pantalla (en vez de arriba, que es el default de Omarchy).
 - **`style.css`** — Estilos visuales de la barra.
 
+### `elephant/`
+Configuración de Elephant (backend de proveedores de datos de Walker, el launcher).
+
+- **`clipboard.toml`** — Config del proveedor de historial de portapapeles. `command` está modificado para que, al seleccionar un elemento, además de copiarlo (`wl-copy`) se envíe automáticamente `Shift+Insert` a la ventana activa (pegado universal) — así queda pegado al instante, sin tener que pegar manualmente (útil sobre todo en terminales, donde `Ctrl+V` no funciona por defecto).
+
 ### `specs/`
 Especificaciones de referencia de cada equipo (hardware, drivers, software instalado).
 
