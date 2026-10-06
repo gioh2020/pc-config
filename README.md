@@ -73,7 +73,7 @@ Hooks de Omarchy (se ejecutan automáticamente en ciertos eventos, ver [`~/.conf
 
 - **`theme-set.d/remove-chromium-browser-policy`** *(compartido)* — Al cambiar de tema, Omarchy fuerza el color del tema de Chromium/Chrome/Edge/Brave escribiendo una política "managed" (`BrowserThemeColor`/`BrowserColorScheme`) en `/etc/*/policies/managed/color.json` (ver `omarchy-theme-set-browser`). Esa política bloquea el selector de tema nativo del navegador con "Set by your Organization". Este hook borra esos archivos justo después de cada cambio de tema para poder elegir el tema del navegador manualmente. En Omarchy 3 no necesitaba `sudo` porque esos directorios `policies/managed/` eran world-writable (0777, root:root).
 
-  ⚠️ **No funciona en Omarchy 4:** los directorios pasaron a 0755 root:root (endurecimiento de seguridad intencional: con 0777 cualquier proceso podía inyectar políticas en el navegador), así que el `rm` sin root falla en silencio y el bloqueo de tema vuelve. No volver a 0777. Pendiente: dar al hook una forma de borrar con root solo esos archivos (p. ej. una regla de sudoers acotada a ese `rm` exacto).
+  **Omarchy 4+:** los directorios pasaron a 0755 root:root (endurecimiento de seguridad intencional; no volver a 0777), así que el hook borra con `sudo -n`. Requiere instalar la regla [`omarchy/sudoers/pc-config-browser-policy`](omarchy/sudoers/pc-config-browser-policy), que permite sin contraseña solo ese `rm` exacto. Sin la regla, el hook falla sin pedir contraseña y el bloqueo de tema vuelve.
 
 ### `specs/`
 Especificaciones de referencia de cada equipo (hardware, drivers, software instalado). Son solo documentación — no se aplican a ningún lado.
@@ -107,6 +107,7 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    cp hypr/bindings.lua ~/.config/hypr/bindings.lua
    cp hypr/tiling_referencia_es.conf ~/.config/hypr/tiling_referencia_es.conf
    omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
+   sudo install -m 0440 -o root -g root omarchy/sudoers/pc-config-browser-policy /etc/sudoers.d/ && sudo visudo -c
    # Laptop:
    cp hypr/monitors-laptop.lua ~/.config/hypr/monitors.lua
    # Escritorio:

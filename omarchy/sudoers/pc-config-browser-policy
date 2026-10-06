@@ -1,0 +1,4 @@
+# Usado por omarchy/hooks/theme-set.d/remove-chromium-browser-policy (Omarchy 4+).
+# Solo permite este rm exacto (mismas rutas, mismo orden), sin contrasena.
+# Instalar: sudo install -m 0440 -o root -g root omarchy/sudoers/pc-config-browser-policy /etc/sudoers.d/ && sudo visudo -c
+%wheel ALL=(root) NOPASSWD: /usr/bin/rm -f /etc/chromium/policies/managed/color.json /etc/opt/chrome/policies/managed/color.json /etc/opt/edge/policies/managed/color.json /etc/brave/policies/managed/color.json

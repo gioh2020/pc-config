@@ -6,10 +6,13 @@
 # de tema nativo del navegador con "Set by your Organization". Este hook la borra despues
 # de cada cambio de tema para poder elegir el tema del navegador manualmente.
 #
-# Los directorios policies/managed/ son world-writable (0777, root:root), asi que no hace
-# falta sudo para borrar el archivo.
+# Desde Omarchy 4 los directorios policies/managed/ son 0755 root:root (antes 0777), asi
+# que borrar necesita root. Se usa `sudo -n` con la regla sin contrasena de
+# /etc/sudoers.d/pc-config-browser-policy (ver omarchy/sudoers/ en el repo), que solo
+# permite este comando exacto: mismas rutas, mismo orden. Sin la regla falla sin pedir
+# contrasena.
 
-rm -f \
+sudo -n /usr/bin/rm -f \
   /etc/chromium/policies/managed/color.json \
   /etc/opt/chrome/policies/managed/color.json \
   /etc/opt/edge/policies/managed/color.json \
