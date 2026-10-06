@@ -15,7 +15,6 @@ omarchy install editor vscode
 omarchy install gaming steam
 omarchy pkg add typora github-cli
 omarchy pkg aur add jdownloader2
-omarchy webapp install "GitHub" "https://github.com/" "$PWD/icons/GitHub.png"
 
 # Apps por defecto que no uso
 omarchy pkg drop \

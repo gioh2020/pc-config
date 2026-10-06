@@ -13,7 +13,6 @@ Lista de las apps que quiero tener después de instalar Omarchy (4+). `apps/setu
 | JDownloader 2 | AUR: `jdownloader2` |
 | Typora | repo de Omarchy: `typora` |
 | GitHub CLI | `github-cli` |
-| GitHub (web app) | `omarchy webapp install` con `apps/icons/GitHub.png` |
 
 ## De Omarchy que conservo
 

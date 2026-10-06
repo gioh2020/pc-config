@@ -66,8 +66,7 @@ Configuración de Waybar (barra de estado), colocada abajo de la pantalla (no ar
 ### `apps/`
 
 - **`lista.md`** — Las apps que conservo después de instalar Omarchy (sin juegos de Steam) y las apps por defecto que quito.
-- **`setup.sh`** — En una instalación nueva de Omarchy 4+: instala mis apps (Chrome, Ghostty, VS Code, Steam, JDownloader, Typora, GitHub CLI, web app de GitHub) y quita las apps por defecto que no uso. Junto con `hypr/bindings.lua`, que desactiva sus atajos.
-- **`icons/`** — Íconos de web apps.
+- **`setup.sh`** — En una instalación nueva de Omarchy 4+: instala mis apps (Chrome, Ghostty, VS Code, Steam, JDownloader, Typora, GitHub CLI) y quita las apps por defecto que no uso. Junto con `hypr/bindings.lua`, que desactiva sus atajos.
 
 ### `elephant/`
 Configuración de Elephant (backend de proveedores de datos de Walker, el launcher).
