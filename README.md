@@ -29,6 +29,7 @@ La mayoría de la config es igual en los dos equipos. Solo estos archivos cambia
 | `hypr/monitors-laptop.lua` | Solo laptop (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
 | `hypr/monitors-desktop.conf` | Solo escritorio (Omarchy 3) | Copiar como `~/.config/hypr/monitors.conf` |
 | `hypr/monitors-desktop.lua` | Solo escritorio (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
+| `desktop/fonts.sh` + `omarchy/shell-desktop.toml` | Solo escritorio (Omarchy 4+) | Letra más grande a escala 1: terminales 11, barra 14, GTK ×1.15. Ejecutar `desktop/fonts.sh` |
 | `waybar/temperature.sh` | Compartido, pero solo útil en la laptop | Tiene hardcodeados los nombres de sensores (`k10temp-pci-*`, `amdgpu-pci-*`) de la laptop. En el escritorio el módulo de temperatura mostrará `N/A` porque esos chips no existen ahí — no rompe nada, simplemente no es útil en ese equipo. |
 | `waybar/config.jsonc` (módulo `battery`) | Compartido | Comentario interno documenta un ajuste opcional (mostrar `{capacity}%` en vez de solo el ícono) pensado para la laptop, pero **actualmente no está aplicado** — el formato activo (solo ícono) es igual en ambos equipos a propósito. Descomentar esas dos líneas solo si quieres el `%` visible en la laptop. |
 
@@ -51,6 +52,10 @@ Configuración de Waybar (barra de estado), colocada abajo de la pantalla (no ar
 - **`config.jsonc`** *(compartido)* — Módulos y layout de la barra.
 - **`style.css`** *(compartido)* — Estilos visuales.
 - **`temperature.sh`** *(compartido, relevante solo en laptop)* — Script del módulo `custom/temperature`, lee CPU/GPU vía `sensors -j`.
+
+### `desktop/` *(solo escritorio)*
+
+- **`fonts.sh`** — En el G9 a 5120x1440 con escala 1 la letra se ve pequeña. En vez de usar escala fraccional (con 5120x1440 las únicas válidas son 1.0667, 1.25 y 1.333, que achican el espacio de trabajo), agranda solo las fuentes: terminales (ghostty/foot/alacritty/kitty) de 9 → 11, `text-scaling-factor` de GTK 1.15, y copia `omarchy/shell-desktop.toml` a `~/.config/omarchy/shell.toml` (barra/menús `base-size` 12 → 14).
 
 ### `elephant/`
 Configuración de Elephant (backend de proveedores de datos de Walker, el launcher).
@@ -100,6 +105,7 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    cp hypr/monitors-laptop.lua ~/.config/hypr/monitors.lua
    # Escritorio:
    cp hypr/monitors-desktop.lua ~/.config/hypr/monitors.lua
+   desktop/fonts.sh   # letra más grande (solo escritorio)
    hyprctl reload && hyprctl configerrors
    ```
 
