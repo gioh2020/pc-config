@@ -17,7 +17,7 @@ Desde Omarchy 4 Hyprland se configura en **Lua** (`~/.config/hypr/*.lua`), la ba
 - **Omarchy 4+** → usar `hypr/bindings.lua` y `hypr/monitors-desktop.lua`. Lo de `waybar/` y `elephant/` no aplica: la barra se pone abajo con `"position": "bottom"` en `shell.json`, y el gestor de portapapeles nativo (`omarchy.clipboard`) ya pega automáticamente con Shift+Insert al seleccionar.
 - **Omarchy 3** → los archivos `.conf`, `waybar/` y `elephant/` (legado).
 
-Los atajos de apps de `bindings.conf` (terminal, navegador, Nautilus, editor) ya son los defaults de Omarchy 4; `bindings.lua` solo contiene lo que difiere (Super+V → clipboard manager, Super+Alt+W → cerrar pestaña de Chrome).
+Los atajos de apps de `bindings.conf` (terminal, navegador, Nautilus, editor) ya son los defaults de Omarchy 4; `bindings.lua` solo contiene lo que difiere (Super+V → clipboard manager, Super+Alt+W → cerrar pestaña de Chrome, Super+Space → apps y Super+Alt+Space → menú Omarchy como en Omarchy 3).
 
 ## Qué es compartido y qué es específico de cada equipo
 

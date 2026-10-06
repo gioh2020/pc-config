@@ -8,3 +8,10 @@ o.bind("SUPER + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.cli
 
 -- Close the current Chrome tab from anywhere
 o.bind("SUPER + ALT + W", "Close browser tab", hl.dsp.send_shortcut({ mods = "CTRL", key = "W", window = "class:^(google-chrome)$" }))
+
+-- Restore pre-Omarchy 4 launcher keys (Omarchy 4 swapped them):
+-- Super+Space was "Omarchy menu", Super+Alt+Space was "Apps menu"
+hl.unbind("SUPER + SPACE")
+hl.unbind("SUPER + ALT + SPACE")
+o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
+o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle")
