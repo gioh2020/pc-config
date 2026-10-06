@@ -31,5 +31,3 @@ hl.unbind("SUPER + SHIFT + Y")        -- YouTube
 hl.unbind("SUPER + SHIFT + O")        -- Obsidian
 hl.unbind("SUPER + SHIFT + W")        -- Omawrite
 hl.unbind("SUPER + SHIFT + ALT + M")  -- Music TUI (cliamp)
-hl.unbind("SUPER + CTRL + Q")         -- Calculator (omacalc)
-hl.unbind("XF86Calculator")           -- Calculator (omacalc)

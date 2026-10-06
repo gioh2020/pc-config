@@ -17,7 +17,7 @@ omarchy webapp install "GitHub" "https://github.com/" "$PWD/icons/GitHub.png"
 
 # Apps por defecto que no uso
 omarchy pkg drop \
-  obsidian xournalpp omawrite kdenlive moonlight-qt omacalc \
+  obsidian xournalpp omawrite kdenlive moonlight-qt \
   obs-studio localsend aether cliamp foot alacritty
 
 for app in Basecamp Discord "Google Contacts" "Google Maps" "Google Messages" \
