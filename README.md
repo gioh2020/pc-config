@@ -48,7 +48,7 @@ Configuración de Hyprland (window manager) y atajos de teclado.
 
 - **`bindings.conf`** *(compartido)* — Atajos de teclado personalizados (terminal, navegador, gestor de archivos, editor, clipboard manager, etc).
 - **`tiling_referencia_es.conf`** *(compartido)* — Guía de referencia en español con los atajos del sistema de tiling (cerrar/mover/redimensionar ventanas, pantalla completa, workspaces, etc). Es solo documentación, no se aplica ni se sourcea.
-- **`monitors-laptop.conf`** / **`monitors-laptop.lua`** *(solo laptop)* — Panel integrado Samsung ATNA40CU05-0 2.8K OLED 120Hz (escala 2, 10 bits, `cm = edid`, VRR solo en pantalla completa) + monitor externo Samsung G9 vía `DP-1` a la izquierda. `GDK_SCALE=2`.
+- **`monitors-laptop.conf`** / **`monitors-laptop.lua`** *(solo laptop)* — Panel integrado Samsung ATNA40CU05-0 2.8K OLED 120Hz (10 bits, `cm = edid`, VRR solo en pantalla completa) + monitor externo Samsung G9 vía `DP-1` a la izquierda. Escala: `.lua` (Omarchy 4) 1.6 con `GDK_SCALE=1`; `.conf` (Omarchy 3) 2 con `GDK_SCALE=2`.
 - **`bindings.lua`** *(compartido, Omarchy 4+)* — Overrides de atajos en Lua.
 - **`monitors-desktop.conf`** / **`monitors-desktop.lua`** *(solo escritorio)* — Monitor Samsung Odyssey G93SC 49" a 5120x1440@120Hz nativo tanto por HDMI (`HDMI-A-1`) como por DisplayPort (`DP-3`). `GDK_SCALE=1`.
 
