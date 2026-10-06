@@ -15,3 +15,21 @@ hl.unbind("SUPER + SPACE")
 hl.unbind("SUPER + ALT + SPACE")
 o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
 o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle")
+
+-- Apps removed by apps/setup.sh: drop their default keys
+hl.unbind("SUPER + SHIFT + A")        -- ChatGPT
+hl.unbind("SUPER + SHIFT + C")        -- HEY Calendar
+hl.unbind("SUPER + SHIFT + E")        -- HEY Email
+hl.unbind("SUPER + SHIFT + ALT + E")  -- HEY New email
+hl.unbind("SUPER + SHIFT + ALT + G")  -- WhatsApp
+hl.unbind("SUPER + SHIFT + CTRL + G") -- Google Messages
+hl.unbind("SUPER + SHIFT + P")        -- Google Photos
+hl.unbind("SUPER + SHIFT + S")        -- Google Maps
+hl.unbind("SUPER + SHIFT + X")        -- X
+hl.unbind("SUPER + SHIFT + ALT + X")  -- X Post
+hl.unbind("SUPER + SHIFT + Y")        -- YouTube
+hl.unbind("SUPER + SHIFT + O")        -- Obsidian
+hl.unbind("SUPER + SHIFT + W")        -- Omawrite
+hl.unbind("SUPER + SHIFT + ALT + M")  -- Music TUI (cliamp)
+hl.unbind("SUPER + CTRL + Q")         -- Calculator (omacalc)
+hl.unbind("XF86Calculator")           -- Calculator (omacalc)

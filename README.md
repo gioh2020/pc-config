@@ -63,6 +63,12 @@ Configuración de Waybar (barra de estado), colocada abajo de la pantalla (no ar
 
 - **`fonts.sh`** — En el G9 a 5120x1440 con escala 1 la letra se ve pequeña. En vez de usar escala fraccional (con 5120x1440 las únicas válidas son 1.0667, 1.25 y 1.333, que achican el espacio de trabajo), agranda solo las fuentes: Ghostty de 9 → 10, `text-scaling-factor` de GTK 1.1, y copia `omarchy/shell-desktop.toml` a `~/.config/omarchy/shell.toml` (barra/menús `base-size` 12 → 13).
 
+### `apps/`
+
+- **`lista.md`** — Las apps que conservo después de instalar Omarchy (sin juegos de Steam) y las apps por defecto que quito.
+- **`setup.sh`** — En una instalación nueva de Omarchy 4+: instala mis apps (Chrome, Ghostty, VS Code, Steam, JDownloader, Typora, GitHub CLI, web app de GitHub) y quita las apps por defecto que no uso. Junto con `hypr/bindings.lua`, que desactiva sus atajos.
+- **`icons/`** — Íconos de web apps.
+
 ### `elephant/`
 Configuración de Elephant (backend de proveedores de datos de Walker, el launcher).
 
@@ -104,6 +110,7 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
 
    En **Omarchy 4+**, en vez de lo anterior:
    ```bash
+   apps/setup.sh      # mis apps; quita las apps por defecto que no uso
    cp hypr/bindings.lua ~/.config/hypr/bindings.lua
    cp hypr/tiling_referencia_es.conf ~/.config/hypr/tiling_referencia_es.conf
    omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
