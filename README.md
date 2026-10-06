@@ -14,7 +14,7 @@ Configuración personal del sistema (Omarchy / Hyprland), compartida entre dos e
 
 Desde Omarchy 4 Hyprland se configura en **Lua** (`~/.config/hypr/*.lua`), la barra es el shell de Omarchy (Quickshell, `~/.config/omarchy/shell.json`) y Waybar/Walker/Elephant ya no existen. Por eso:
 
-- **Omarchy 4+** → usar `hypr/bindings.lua` y `hypr/monitors-desktop.lua`. Lo de `waybar/` y `elephant/` no aplica: la barra se pone abajo con `"position": "bottom"` en `shell.json`, y el gestor de portapapeles nativo (`omarchy.clipboard`) ya pega automáticamente con Shift+Insert al seleccionar.
+- **Omarchy 4+** → usar `hypr/bindings.lua` y `hypr/monitors-laptop.lua` / `hypr/monitors-desktop.lua`. Lo de `waybar/` y `elephant/` no aplica: la barra se pone abajo con `"position": "bottom"` en `shell.json`, y el gestor de portapapeles nativo (`omarchy.clipboard`) ya pega automáticamente con Shift+Insert al seleccionar.
 - **Omarchy 3** → los archivos `.conf`, `waybar/` y `elephant/` (legado).
 
 Los atajos de apps de `bindings.conf` (terminal, navegador, Nautilus, editor) ya son los defaults de Omarchy 4; `bindings.lua` solo contiene lo que difiere (Super+V → clipboard manager, Super+Alt+W → cerrar pestaña de Chrome, Super+Space → apps y Super+Alt+Space → menú Omarchy como en Omarchy 3).
@@ -25,7 +25,8 @@ La mayoría de la config es igual en los dos equipos. Solo estos archivos cambia
 
 | Archivo | Aplica a | Notas |
 |---|---|---|
-| `hypr/monitors-laptop.conf` | Solo laptop | Copiar como `~/.config/hypr/monitors.conf` |
+| `hypr/monitors-laptop.conf` | Solo laptop (Omarchy 3) | Copiar como `~/.config/hypr/monitors.conf` |
+| `hypr/monitors-laptop.lua` | Solo laptop (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
 | `hypr/monitors-desktop.conf` | Solo escritorio (Omarchy 3) | Copiar como `~/.config/hypr/monitors.conf` |
 | `hypr/monitors-desktop.lua` | Solo escritorio (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
 | `waybar/temperature.sh` | Compartido, pero solo útil en la laptop | Tiene hardcodeados los nombres de sensores (`k10temp-pci-*`, `amdgpu-pci-*`) de la laptop. En el escritorio el módulo de temperatura mostrará `N/A` porque esos chips no existen ahí — no rompe nada, simplemente no es útil en ese equipo. |
@@ -40,7 +41,7 @@ Configuración de Hyprland (window manager) y atajos de teclado.
 
 - **`bindings.conf`** *(compartido)* — Atajos de teclado personalizados (terminal, navegador, gestor de archivos, editor, clipboard manager, etc).
 - **`tiling_referencia_es.conf`** *(compartido)* — Guía de referencia en español con los atajos del sistema de tiling (cerrar/mover/redimensionar ventanas, pantalla completa, workspaces, etc). Es solo documentación, no se aplica ni se sourcea.
-- **`monitors-laptop.conf`** *(solo laptop)* — Panel integrado Samsung ATNA40CU05-0 2.8K OLED 120Hz + soporte para el monitor externo Samsung G9 vía `DP-1`.
+- **`monitors-laptop.conf`** / **`monitors-laptop.lua`** *(solo laptop)* — Panel integrado Samsung ATNA40CU05-0 2.8K OLED 120Hz (escala 2, 10 bits, `cm = edid`, VRR solo en pantalla completa) + monitor externo Samsung G9 vía `DP-1` a la izquierda. `GDK_SCALE=2`.
 - **`bindings.lua`** *(compartido, Omarchy 4+)* — Overrides de atajos en Lua.
 - **`monitors-desktop.conf`** / **`monitors-desktop.lua`** *(solo escritorio)* — Monitor Samsung Odyssey G93SC 49" a 5120x1440@120Hz nativo tanto por HDMI (`HDMI-A-1`) como por DisplayPort (`DP-3`). `GDK_SCALE=1`.
 
@@ -59,7 +60,9 @@ Configuración de Elephant (backend de proveedores de datos de Walker, el launch
 ### `omarchy/hooks/`
 Hooks de Omarchy (se ejecutan automáticamente en ciertos eventos, ver [`~/.config/omarchy/hooks/`](https://learn.omarchy.org)).
 
-- **`theme-set.d/remove-chromium-browser-policy`** *(compartido)* — Al cambiar de tema, Omarchy fuerza el color del tema de Chromium/Chrome/Edge/Brave escribiendo una política "managed" (`BrowserThemeColor`/`BrowserColorScheme`) en `/etc/*/policies/managed/color.json` (ver `omarchy-theme-set-browser`). Esa política bloquea el selector de tema nativo del navegador con "Set by your Organization". Este hook borra esos archivos justo después de cada cambio de tema para poder elegir el tema del navegador manualmente. No necesita `sudo`: esos directorios `policies/managed/` son world-writable (0777, root:root).
+- **`theme-set.d/remove-chromium-browser-policy`** *(compartido)* — Al cambiar de tema, Omarchy fuerza el color del tema de Chromium/Chrome/Edge/Brave escribiendo una política "managed" (`BrowserThemeColor`/`BrowserColorScheme`) en `/etc/*/policies/managed/color.json` (ver `omarchy-theme-set-browser`). Esa política bloquea el selector de tema nativo del navegador con "Set by your Organization". Este hook borra esos archivos justo después de cada cambio de tema para poder elegir el tema del navegador manualmente. En Omarchy 3 no necesitaba `sudo` porque esos directorios `policies/managed/` eran world-writable (0777, root:root).
+
+  ⚠️ **No funciona en Omarchy 4:** los directorios pasaron a 0755 root:root (endurecimiento de seguridad intencional: con 0777 cualquier proceso podía inyectar políticas en el navegador), así que el `rm` sin root falla en silencio y el bloqueo de tema vuelve. No volver a 0777. Pendiente: dar al hook una forma de borrar con root solo esos archivos (p. ej. una regla de sudoers acotada a ese `rm` exacto).
 
 ### `specs/`
 Especificaciones de referencia de cada equipo (hardware, drivers, software instalado). Son solo documentación — no se aplican a ningún lado.
@@ -93,6 +96,8 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    cp hypr/bindings.lua ~/.config/hypr/bindings.lua
    cp hypr/tiling_referencia_es.conf ~/.config/hypr/tiling_referencia_es.conf
    omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
+   # Laptop:
+   cp hypr/monitors-laptop.lua ~/.config/hypr/monitors.lua
    # Escritorio:
    cp hypr/monitors-desktop.lua ~/.config/hypr/monitors.lua
    hyprctl reload && hyprctl configerrors
