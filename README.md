@@ -39,6 +39,8 @@ La mayoría de la config es igual en los dos equipos. Solo estos archivos cambia
 | `waybar/temperature.sh` | Compartido, pero solo útil en la laptop | Tiene hardcodeados los nombres de sensores (`k10temp-pci-*`, `amdgpu-pci-*`) de la laptop. En el escritorio el módulo de temperatura mostrará `N/A` porque esos chips no existen ahí — no rompe nada, simplemente no es útil en ese equipo. |
 | `waybar/config.jsonc` (módulo `battery`) | Compartido | Comentario interno documenta un ajuste opcional (mostrar `{capacity}%` en vez de solo el ícono) pensado para la laptop, pero **actualmente no está aplicado** — el formato activo (solo ícono) es igual en ambos equipos a propósito. Descomentar esas dos líneas solo si quieres el `%` visible en la laptop. |
 
+**Teclado (compartido, Omarchy 4+):** `hypr/input.lua` y `fcitx5/profile` dejan solo **inglés (US) internacional con teclas muertas** (`~` + `n` = ñ, `'` + `e` = é; Caps Lock = Compose). Hay que ponerlo en los dos lados, porque Fcitx5 tiene su propio teclado virtual y, si se queda en `keyboard-us`, la ñ no sale.
+
 Todo lo demás (`hypr/bindings.conf`, `hypr/tiling_referencia_es.conf`, `waybar/style.css`, `elephant/clipboard.toml`) es **idéntico en ambos equipos**, sin ajustes por hardware.
 
 ## Contenido
@@ -50,6 +52,7 @@ Configuración de Hyprland (window manager) y atajos de teclado.
 - **`tiling_referencia_es.conf`** *(compartido)* — Guía de referencia en español con los atajos del sistema de tiling (cerrar/mover/redimensionar ventanas, pantalla completa, workspaces, etc). Es solo documentación, no se aplica ni se sourcea.
 - **`monitors-laptop.conf`** / **`monitors-laptop.lua`** *(solo laptop)* — Panel integrado Samsung ATNA40CU05-0 2.8K OLED 120Hz (10 bits, `cm = edid`, VRR solo en pantalla completa) + monitor externo Samsung G9 vía `DP-1` a la izquierda. Escala: `.lua` (Omarchy 4) 1.6 con `GDK_SCALE=1`; `.conf` (Omarchy 3) 2 con `GDK_SCALE=2`.
 - **`bindings.lua`** *(compartido, Omarchy 4+)* — Overrides de atajos en Lua.
+- **`input.lua`** *(compartido, Omarchy 4+)* — Teclado inglés (US) internacional con teclas muertas.
 - **`monitors-desktop.conf`** / **`monitors-desktop.lua`** *(solo escritorio)* — Monitor Samsung Odyssey G93SC 49" a 5120x1440@120Hz nativo tanto por HDMI (`HDMI-A-1`) como por DisplayPort (`DP-3`). `GDK_SCALE=1`.
 
 ### `waybar/`
@@ -62,6 +65,10 @@ Configuración de Waybar (barra de estado), colocada abajo de la pantalla (no ar
 ### `desktop/` *(solo escritorio)*
 
 - **`fonts.sh`** — En el G9 a 5120x1440 con escala 1 la letra se ve pequeña. En vez de usar escala fraccional (con 5120x1440 las únicas válidas son 1.0667, 1.25 y 1.333, que achican el espacio de trabajo), agranda solo las fuentes: Ghostty de 9 → 10, `text-scaling-factor` de GTK 1.1, y copia `omarchy/shell-desktop.toml` a `~/.config/omarchy/shell.toml` (barra/menús `base-size` 12 → 13).
+
+### `fcitx5/`
+
+- **`profile`** *(compartido)* — Fcitx5 con solo `keyboard-us-intl`. Copiarlo con Fcitx5 detenido, porque al cerrarse sobrescribe este archivo.
 
 ### `apps/`
 
@@ -111,6 +118,8 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    ```bash
    apps/setup.sh      # mis apps; quita las apps por defecto que no uso
    cp hypr/bindings.lua ~/.config/hypr/bindings.lua
+   cp hypr/input.lua ~/.config/hypr/input.lua           # teclado US internacional
+   systemctl --user stop omarchy-fcitx5.service && cp fcitx5/profile ~/.config/fcitx5/profile && systemctl --user start omarchy-fcitx5.service
    cp hypr/tiling_referencia_es.conf ~/.config/hypr/tiling_referencia_es.conf
    omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
    sudo install -m 0440 -o root -g root omarchy/sudoers/pc-config-browser-policy /etc/sudoers.d/ && sudo visudo -c
