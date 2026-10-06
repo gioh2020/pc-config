@@ -9,6 +9,8 @@ omarchy install terminal ghostty
 
 # Mis apps
 omarchy install browser chrome
+# Chrome por defecto antes de quitar Chromium (atajos y web apps usan el navegador por defecto).
+omarchy default browser chrome
 omarchy install editor vscode
 omarchy install gaming steam
 omarchy pkg add typora github-cli
@@ -18,7 +20,8 @@ omarchy webapp install "GitHub" "https://github.com/" "$PWD/icons/GitHub.png"
 # Apps por defecto que no uso
 omarchy pkg drop \
   obsidian xournalpp omawrite kdenlive moonlight-qt \
-  obs-studio localsend aether cliamp foot alacritty
+  obs-studio localsend aether cliamp foot alacritty \
+  chromium signal-desktop
 
 for app in Basecamp Discord "Google Contacts" "Google Maps" "Google Messages" \
   "Google Photos" HEY WhatsApp X YouTube Zoom; do

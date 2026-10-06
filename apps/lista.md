@@ -6,7 +6,7 @@ Lista de las apps que quiero tener después de instalar Omarchy (4+). `apps/setu
 
 | App | Cómo se instala |
 |---|---|
-| Google Chrome | `omarchy install browser chrome` |
+| Google Chrome (navegador por defecto) | `omarchy install browser chrome` + `omarchy default browser chrome` |
 | Ghostty (terminal por defecto) | `omarchy install terminal ghostty` |
 | Visual Studio Code | `omarchy install editor vscode` |
 | Steam (sin juegos) | `omarchy install gaming steam` |
@@ -26,7 +26,7 @@ Lista de las apps que quiero tener después de instalar Omarchy (4+). `apps/setu
 
 ## De Omarchy que quito
 
-- **Paquetes:** Obsidian, Xournal++, Omawrite, Kdenlive, Moonlight, OBS Studio, LocalSend, Aether, Cliamp, Foot, Alacritty
+- **Paquetes:** Obsidian, Xournal++, Omawrite, Kdenlive, Moonlight, OBS Studio, LocalSend, Aether, Cliamp, Foot, Alacritty, Chromium, Signal
 - **Web apps:** Basecamp, Discord, Google Contacts, Google Maps, Google Messages, Google Photos, HEY, WhatsApp, X, YouTube, Zoom
 - **TUI:** Disk Usage
 - **Atajos de esas apps:** desactivados en `hypr/bindings.lua`
