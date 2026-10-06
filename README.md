@@ -5,10 +5,19 @@ Configuración personal del sistema (Omarchy / Hyprland), compartida entre dos e
 | | Laptop | Escritorio |
 |---|---|---|
 | Equipo | ASUS ROG Zephyrus G14 GA403UV | PC de oficina |
-| Pantalla | Panel integrado 2.8K OLED 120Hz + monitor externo Samsung Odyssey G9 (opcional, vía `DP-1`) | Monitor Samsung Odyssey G9 49" 5120x1440@120Hz (DisplayPort) |
+| Pantalla | Panel integrado 2.8K OLED 120Hz + monitor externo Samsung Odyssey G9 (opcional, vía `DP-1`) | Monitor Samsung Odyssey G9 49" 5120x1440@120Hz (HDMI-A-1, también DP-3) |
 | Specs completas | [`specs/laptop-ga403uv.md`](specs/laptop-ga403uv.md) | — (agregar `specs/desktop-*.md` si hace falta) |
 
 **¿Cómo saber en qué equipo estás?** `hostnamectl` — el campo `Chassis` dice `laptop` o `desktop`. (El `Static hostname` no sirve para distinguir: Omarchy usa `omarchy` por defecto en ambos.)
+
+## Omarchy 4 (quattro) vs Omarchy 3
+
+Desde Omarchy 4 Hyprland se configura en **Lua** (`~/.config/hypr/*.lua`), la barra es el shell de Omarchy (Quickshell, `~/.config/omarchy/shell.json`) y Waybar/Walker/Elephant ya no existen. Por eso:
+
+- **Omarchy 4+** → usar `hypr/bindings.lua` y `hypr/monitors-desktop.lua`. Lo de `waybar/` y `elephant/` no aplica: la barra se pone abajo con `"position": "bottom"` en `shell.json`, y el gestor de portapapeles nativo (`omarchy.clipboard`) ya pega automáticamente con Shift+Insert al seleccionar.
+- **Omarchy 3** → los archivos `.conf`, `waybar/` y `elephant/` (legado).
+
+Los atajos de apps de `bindings.conf` (terminal, navegador, Nautilus, editor) ya son los defaults de Omarchy 4; `bindings.lua` solo contiene lo que difiere (Super+V → clipboard manager, Super+Alt+W → cerrar pestaña de Chrome).
 
 ## Qué es compartido y qué es específico de cada equipo
 
@@ -17,7 +26,8 @@ La mayoría de la config es igual en los dos equipos. Solo estos archivos cambia
 | Archivo | Aplica a | Notas |
 |---|---|---|
 | `hypr/monitors-laptop.conf` | Solo laptop | Copiar como `~/.config/hypr/monitors.conf` |
-| `hypr/monitors-desktop.conf` | Solo escritorio | Copiar como `~/.config/hypr/monitors.conf` |
+| `hypr/monitors-desktop.conf` | Solo escritorio (Omarchy 3) | Copiar como `~/.config/hypr/monitors.conf` |
+| `hypr/monitors-desktop.lua` | Solo escritorio (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
 | `waybar/temperature.sh` | Compartido, pero solo útil en la laptop | Tiene hardcodeados los nombres de sensores (`k10temp-pci-*`, `amdgpu-pci-*`) de la laptop. En el escritorio el módulo de temperatura mostrará `N/A` porque esos chips no existen ahí — no rompe nada, simplemente no es útil en ese equipo. |
 | `waybar/config.jsonc` (módulo `battery`) | Compartido | Comentario interno documenta un ajuste opcional (mostrar `{capacity}%` en vez de solo el ícono) pensado para la laptop, pero **actualmente no está aplicado** — el formato activo (solo ícono) es igual en ambos equipos a propósito. Descomentar esas dos líneas solo si quieres el `%` visible en la laptop. |
 
@@ -31,7 +41,8 @@ Configuración de Hyprland (window manager) y atajos de teclado.
 - **`bindings.conf`** *(compartido)* — Atajos de teclado personalizados (terminal, navegador, gestor de archivos, editor, clipboard manager, etc).
 - **`tiling_referencia_es.conf`** *(compartido)* — Guía de referencia en español con los atajos del sistema de tiling (cerrar/mover/redimensionar ventanas, pantalla completa, workspaces, etc). Es solo documentación, no se aplica ni se sourcea.
 - **`monitors-laptop.conf`** *(solo laptop)* — Panel integrado Samsung ATNA40CU05-0 2.8K OLED 120Hz + soporte para el monitor externo Samsung G9 vía `DP-1`.
-- **`monitors-desktop.conf`** *(solo escritorio)* — Monitor Samsung Odyssey G93SC 49" 5120x1440@120Hz vía DisplayPort.
+- **`bindings.lua`** *(compartido, Omarchy 4+)* — Overrides de atajos en Lua.
+- **`monitors-desktop.conf`** / **`monitors-desktop.lua`** *(solo escritorio)* — Monitor Samsung Odyssey G93SC 49" a 5120x1440@120Hz nativo tanto por HDMI (`HDMI-A-1`) como por DisplayPort (`DP-3`). `GDK_SCALE=1`.
 
 ### `waybar/`
 Configuración de Waybar (barra de estado), colocada abajo de la pantalla (no arriba, que es el default de Omarchy).
@@ -77,7 +88,17 @@ Especificaciones de referencia de cada equipo (hardware, drivers, software insta
    omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
    ```
 
-4. Copiar el archivo de monitores **según el equipo**:
+   En **Omarchy 4+**, en vez de lo anterior:
+   ```bash
+   cp hypr/bindings.lua ~/.config/hypr/bindings.lua
+   cp hypr/tiling_referencia_es.conf ~/.config/hypr/tiling_referencia_es.conf
+   omarchy hook install theme-set omarchy/hooks/theme-set.d/remove-chromium-browser-policy
+   # Escritorio:
+   cp hypr/monitors-desktop.lua ~/.config/hypr/monitors.lua
+   hyprctl reload && hyprctl configerrors
+   ```
+
+4. (Omarchy 3) Copiar el archivo de monitores **según el equipo**:
    ```bash
    # En la laptop:
    cp hypr/monitors-laptop.conf ~/.config/hypr/monitors.conf
