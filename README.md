@@ -17,6 +17,12 @@ Desde Omarchy 4 Hyprland se configura en **Lua** (`~/.config/hypr/*.lua`), la ba
 - **Omarchy 4+** → usar `hypr/bindings.lua` y `hypr/monitors-laptop.lua` / `hypr/monitors-desktop.lua`. Lo de `waybar/` y `elephant/` no aplica: la barra se pone abajo con `"position": "bottom"` en `shell.json`, y el gestor de portapapeles nativo (`omarchy.clipboard`) ya pega automáticamente con Shift+Insert al seleccionar.
 - **Omarchy 3** → los archivos `.conf`, `waybar/` y `elephant/` (legado).
 
+**Terminal:** solo Ghostty. Omarchy 4 deja Foot por defecto; para volver a Ghostty y quitar las demás:
+```bash
+omarchy default terminal ghostty
+sudo pacman -Rns foot alacritty
+```
+
 Los atajos de apps de `bindings.conf` (terminal, navegador, Nautilus, editor) ya son los defaults de Omarchy 4; `bindings.lua` solo contiene lo que difiere (Super+V → clipboard manager, Super+Alt+W → cerrar pestaña de Chrome, Super+Space → apps y Super+Alt+Space → menú Omarchy como en Omarchy 3).
 
 ## Qué es compartido y qué es específico de cada equipo
@@ -29,7 +35,7 @@ La mayoría de la config es igual en los dos equipos. Solo estos archivos cambia
 | `hypr/monitors-laptop.lua` | Solo laptop (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
 | `hypr/monitors-desktop.conf` | Solo escritorio (Omarchy 3) | Copiar como `~/.config/hypr/monitors.conf` |
 | `hypr/monitors-desktop.lua` | Solo escritorio (Omarchy 4+) | Copiar como `~/.config/hypr/monitors.lua` |
-| `desktop/fonts.sh` + `omarchy/shell-desktop.toml` | Solo escritorio (Omarchy 4+) | Letra más grande a escala 1: terminales 11, barra 14, GTK ×1.15. Ejecutar `desktop/fonts.sh` |
+| `desktop/fonts.sh` + `omarchy/shell-desktop.toml` | Solo escritorio (Omarchy 4+) | Letra más grande a escala 1: Ghostty 11, barra 14, GTK ×1.15. Ejecutar `desktop/fonts.sh` |
 | `waybar/temperature.sh` | Compartido, pero solo útil en la laptop | Tiene hardcodeados los nombres de sensores (`k10temp-pci-*`, `amdgpu-pci-*`) de la laptop. En el escritorio el módulo de temperatura mostrará `N/A` porque esos chips no existen ahí — no rompe nada, simplemente no es útil en ese equipo. |
 | `waybar/config.jsonc` (módulo `battery`) | Compartido | Comentario interno documenta un ajuste opcional (mostrar `{capacity}%` en vez de solo el ícono) pensado para la laptop, pero **actualmente no está aplicado** — el formato activo (solo ícono) es igual en ambos equipos a propósito. Descomentar esas dos líneas solo si quieres el `%` visible en la laptop. |
 
@@ -55,7 +61,7 @@ Configuración de Waybar (barra de estado), colocada abajo de la pantalla (no ar
 
 ### `desktop/` *(solo escritorio)*
 
-- **`fonts.sh`** — En el G9 a 5120x1440 con escala 1 la letra se ve pequeña. En vez de usar escala fraccional (con 5120x1440 las únicas válidas son 1.0667, 1.25 y 1.333, que achican el espacio de trabajo), agranda solo las fuentes: terminales (ghostty/foot/alacritty/kitty) de 9 → 11, `text-scaling-factor` de GTK 1.15, y copia `omarchy/shell-desktop.toml` a `~/.config/omarchy/shell.toml` (barra/menús `base-size` 12 → 14).
+- **`fonts.sh`** — En el G9 a 5120x1440 con escala 1 la letra se ve pequeña. En vez de usar escala fraccional (con 5120x1440 las únicas válidas son 1.0667, 1.25 y 1.333, que achican el espacio de trabajo), agranda solo las fuentes: Ghostty de 9 → 11, `text-scaling-factor` de GTK 1.15, y copia `omarchy/shell-desktop.toml` a `~/.config/omarchy/shell.toml` (barra/menús `base-size` 12 → 14).
 
 ### `elephant/`
 Configuración de Elephant (backend de proveedores de datos de Walker, el launcher).
